@@ -350,7 +350,7 @@ impl Index {
           Self::set_statistic(&mut statistics, Statistic::Schema, SCHEMA_VERSION)?;
         }
 
-        if settings.index_runes_raw() && settings.chain() == Chain::Mainnet {
+        if settings.index_runes_raw() && settings.chain() == Chain::Mainnet || settings.chain() == Chain::FractalMainnet || settings.chain() == Chain::FractalTestnet {
           let rune = Rune(2055900680524219742);
 
           let id = RuneId { block: 1, tx: 0 };
