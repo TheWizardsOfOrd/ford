@@ -1653,7 +1653,7 @@ impl Server {
     task::block_in_place(|| {
       Ok(if accept_json {
         let mut maxburn = Amount::from_sat(10000);
-        let mut maxrate = FeeRate::try_from(100000.0).unwrap();
+        let mut maxrate = FeeRate::try_from(0.0).unwrap();
 
         let txs = if data.is_object() {
           let data = data.as_object().unwrap();
@@ -1701,7 +1701,7 @@ impl Server {
               let tx = tx.as_str().unwrap();
               let txid: Result<Txid, bitcoincore_rpc::Error> = index.client.call(
                 "sendrawtransaction",
-                &[tx.into(), maxrate.clone(), maxburn.to_btc().into()],
+                &[tx.into(), maxrate.clone()],
               );
               match txid {
                 Ok(response) => PushTxResult {
